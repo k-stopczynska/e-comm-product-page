@@ -1,0 +1,121 @@
+:root {
+  --orange: hsl(26, 100%, 55%);
+  --pale-orange: hsl(25, 100%, 94%);
+  --very-dark-blue: hsl(220, 13%, 13%);
+  --dark-grayish-blue: hsl(219, 9%, 45%);
+  --grayish-blue: hsl(220, 14%, 75%);
+  --light-grayish-blue: hsl(223, 64%, 98%);
+  --white: hsl(0, 0%, 100%);
+  --black: hsla(0, 0%, 0%, 75%);
+  --font-medium: 400;
+  --font-bold: 700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.overlay {
+    background-color: var(--black);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: none;
+    z-index: 99;
+}
+
+.overlay.active {
+display: flex;
+}
+
+.container__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper__logo__menu {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 1em;
+  position: relative;
+  height: 50px;
+  width: 75%;
+}
+
+.wrapper__hamburger {
+    border: none;
+    background: transparent;
+}
+
+.wrapper__logo {
+  padding-left: 1em;
+}
+
+.wrapper__close__menu {
+    background: url(./images/icon-close.svg) no-repeat;
+    border: none;
+    width: 20px;
+    height: 20px;
+    opacity: .5;
+    margin-bottom: 2em;
+}
+
+.wrapper__menu {
+  background-color: var(--white);
+  font-weight: var(--font-bold);
+  line-height: 2;
+  position: absolute;
+  list-style: none;
+  top: 0;
+  transform: translateX(-300px);
+  transition: transform 0.5s ease-in-out;
+  width: 80%;
+  height: 100vh;
+  padding: 1em;
+  z-index: 9999;
+}
+
+.wrapper__menu.active {
+  transform: translateX(-15px);
+}
+
+.wrapper__menu> a {
+    color: var(--very-dark-blue);
+    text-decoration: none;
+}
+
+.wrapper__cart__user {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  width: 25%;
+}
+
+.wrapper__cart > img,
+.wrapper__user > img {
+  height: 25px;
+  width: 25px;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
