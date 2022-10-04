@@ -36,20 +36,30 @@
         <img src="./images/image-avatar.png" alt="avatar">
       </div>
   </nav>
-  <main>
-    <section>
-    <div class="wraper__images">
-      <div class="wrapper__image__main"></div>
-      <div class="wrapper__thumbs">
-        <img src="./images/image-product-1-thumbnail.jpg" alt="product">
-        <img src="./images/image-product-2-thumbnail.jpg" alt="product">
-        <img src="./images/image-product-3-thumbnail.jpg" alt="product">
-        <img src="./images/image-product-4-thumbnail.jpg" alt="product">
+  <main class="container__main">
+    <section class="secton__images">
+    <div class="lightbox">
+      <div class="wrapper__image__main">
+        <ul class="list__image__main">
+          <li class="active" data-Id="1"><img src="./images/image-product-1.jpg" alt="product"></li>
+          <li data-Id="2"><img src="./images/image-product-2.jpg" alt="product"></li>
+          <li data-Id="3"><img src="./images/image-product-3.jpg" alt="product"></li>
+          <li data-Id="4"><img src="./images/image-product-4.jpg" alt="product"></li>
+        </ul>
+        <button class="arrow arrow__left"><img src="./images/icon-previous.svg"></button>
+        <button class="arrow arrow__right"><img src="./images/icon-next.svg"></button>
       </div>
+      <ul class="wrapper__thumbs">
+        <li data-Id="1"><img src="./images/image-product-1-thumbnail.jpg" alt="product"></li>
+        <li data-Id="2"><img src="./images/image-product-2-thumbnail.jpg" alt="product"></li>
+        <li data-Id="3"><img src="./images/image-product-3-thumbnail.jpg" alt="product"></li>
+        <li data-Id="4"><img src="./images/image-product-4-thumbnail.jpg" alt="product"></li>
+      </ul>
     </div>
-    <article>
+  </section>
+    <article class="article__main">
     <header>
-      <h2>Sneaker Company</h2>
+      <p>Sneaker Company</p>
       <h1>Fall Limited Edition Sneakers</h1>
     </header>
       <p>These low-profile sneakers are your perfect casual wear companion. Featuring a 
@@ -57,12 +67,17 @@
       </p>
       <div class="wrapper__price">
     <h2>$125.00<span>50%</span></h2>
-    <h4>$250.00</h4>
+    <h3>$250.00</h3>
+      </div>
+      <form type="submit" class="wrapper__add__product">
+        <div class="wrapper__input">
+        <button class="button__minus"></button>
+    <input id="input__add__product" type="number" min="1" max="100" step="1" value="0">
+    <button class="button__plus"></button>
   </div>
-    0
-    <button>Add to cart</button>
+    <button class="button__add__product"><img src='./images/icon-cart.svg'>Add to cart</button>
+  </form>
   </article>
-  </section>
   </main>
 
 <footer>
