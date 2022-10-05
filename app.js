@@ -34,20 +34,32 @@ const lightboxHandler = () => {
   overlay.classList.add("active");
   const lightBox = lightbox.cloneNode(true);
   lightBox.classList.add("visible");
+  const closeLightBox = document.createElement("button");
+  closeLightBox.classList.add("button__close__lightbox");
+  lightBox.appendChild(closeLightBox);
   document.body.appendChild(lightBox);
   const arrows = document.querySelectorAll(".arrow");
   arrows.forEach((arrow) => {
     arrow.addEventListener("click", wrapperImageHandler);
+    const thumbsImageList = document.querySelectorAll(".wrapper__thumbs");
+    thumbsImageList.forEach((list) =>
+      list.addEventListener("click", thumbImageHandler)
+    );
   });
 };
 
-const addToCartHandler = (e) => {
-  e.preventDefault();
-  console.log(e.currentTarget);
-};
+const closeLightboxHandler = () => {
+    overlay.classList.remove('active');
+   const lightBox = document.querySelector('.visible');
+   lightBox.remove();
+}
 
 const thumbImageHandler = (e) => {
-  const listOfSlides = mainImageList.getElementsByTagName("li");
+  const elements = e.currentTarget.children;
+  [...elements].forEach((elem) => elem.classList.remove("checked"));
+  e.target.closest("li").classList.add("checked");
+  const listOfSlides =
+    e.currentTarget.previousElementSibling.getElementsByTagName("li");
   for (const slide of listOfSlides) {
     if (slide.dataset.id === e.target.closest("li").dataset.id) {
       [...listOfSlides].forEach((slide) => slide.classList.remove("active"));
@@ -56,12 +68,20 @@ const thumbImageHandler = (e) => {
   }
 };
 
+const addToCartHandler = (e) => {
+  e.preventDefault();
+  console.log(e.currentTarget);
+};
+
 hamburger.addEventListener("click", menuHandler);
 closeMenu.addEventListener("click", closeMenuHandler);
 arrows.forEach((arrow) => {
   arrow.addEventListener("click", wrapperImageHandler);
 });
 form.addEventListener("submit", addToCartHandler);
-
 mainImageList.addEventListener("click", lightboxHandler);
 thumbsImageList.addEventListener("click", thumbImageHandler);
+overlay.addEventListener('click', closeLightboxHandler);
+if (lightbox.classList.contains('visible')) {
+    lightbox.querySelector('button').addEventListener('click', closeLightboxHandler)
+};
