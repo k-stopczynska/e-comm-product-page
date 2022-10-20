@@ -40,7 +40,6 @@ const lightboxHandler = () => {
   closeLightBox.classList.add("button__close__lightbox");
   lightBox.appendChild(closeLightBox);
   document.body.appendChild(lightBox);
- 
   closeLightBox.addEventListener("click", closeLightboxHandler);
   const arrows = document.querySelectorAll(".arrow");
   arrows.forEach((arrow) => {
@@ -126,15 +125,27 @@ const addToCartHandler = (e) => {
   e.preventDefault();
   const thumb = thumbsImageList.children[0].innerHTML;
   const title = document.querySelector("h1").innerText;
-  const price = e.target.previousElementSibling.children[0].dataset.value;
-  const value = e.target.children[0].children[1].value;
-  if (e.target.children[1]) {
-    createCart(thumb, title, price, value);
-  }
+  const price = form.previousElementSibling.children[0].dataset.value;
+  let value = form.children[0].children[1].value;
+  value < 1
+    ? alert("You cannot purchase less than 1 item")
+    : createCart(thumb, title, price, value);
 };
 
 showCartHandler = () => {
   cart.classList.add("visible");
+};
+
+manageProductsValue = (e) => {
+  e.preventDefault();
+  const valueOffset = e.target.classList.contains("button__plus")
+    ? 1
+    : e.target.classList.contains("button__minus")
+    ? -1
+    : addToCartHandler(e);
+  let value = parseInt(form.querySelector("#input__add__product").value);
+  value += valueOffset;
+  form.querySelector("#input__add__product").value = value;
 };
 
 hamburger.addEventListener("click", menuHandler);
@@ -143,12 +154,8 @@ arrows.forEach((arrow) => {
   arrow.addEventListener("click", wrapperImageHandler);
 });
 form.addEventListener("submit", addToCartHandler);
+form.addEventListener("click", manageProductsValue);
 mainImageList.addEventListener("click", lightboxHandler);
 thumbsImageList.addEventListener("click", thumbImageHandler);
 overlay.addEventListener("click", closeLightboxHandler);
-if (lightbox.classList.contains("visible")) {
-  lightbox
-    .querySelector("button")
-    .addEventListener("click", closeLightboxHandler);
-}
 wrapperCart.addEventListener("click", showCartHandler);

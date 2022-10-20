@@ -287,6 +287,12 @@ body {
   }
 }
 
+@media (min-width: 1200px) {
+  .container__main {
+    width: 75vw;
+  }
+}
+
 .wrapper__image__main,
 .list__image__main {
   position: relative;
@@ -409,6 +415,12 @@ header > h1 {
   padding: 0.5em 0;
 }
 
+@media (min-width: 1200px) {
+  header > h1 {
+  font-size: 2.5rem;
+  }
+}
+
 p {
   line-height: 1.5;
   color: var(--grayish-blue);
@@ -420,6 +432,16 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+@media (min-width: 920px) {
+  .wrapper__price {
+    flex-direction: column;
+    align-items: baseline;
+    line-height: 1.5;
+  }
 }
 
 .wrapper__price > h2 {
@@ -451,6 +473,12 @@ p {
   gap: 0.5em;
 }
 
+@media (min-width: 920px) {
+  .wrapper__add__product {
+    flex-direction: row;
+  }
+}
+
 .wrapper__input {
   border: none;
   border-radius: 5px;
@@ -460,12 +488,17 @@ p {
   align-items: center;
   justify-content: space-between;
 }
+@media (min-width: 920px) {
+  .wrapper__input {
+    width: 40%;
+  }
+}
 
 #input__add__product {
   outline: none;
   border: none;
   background: var(--light-grayish-blue);
-  padding: 0.4em;
+  padding: 1.2em;
 }
 
 .button__minus,
@@ -479,10 +512,12 @@ p {
 
 .button__minus {
   background: url("./images/icon-minus.svg") no-repeat center center;
+  margin-left: 1em;
 }
 
 .button__plus {
   background: url("./images/icon-plus.svg") no-repeat center center;
+  margin-right: 1em;
 }
 
 .button__add__product {
@@ -491,7 +526,7 @@ p {
   border-radius: 5px;
   color: var(--white);
   font-weight: var(--font-bold);
-  padding: 0.8em;
+  padding: 1.2em;
   width: 100%;
   display: flex;
   align-items: center;
