@@ -499,6 +499,7 @@ p {
   border: none;
   background: var(--light-grayish-blue);
   padding: 1.2em;
+  pointer-events: none;
 }
 
 .button__minus,

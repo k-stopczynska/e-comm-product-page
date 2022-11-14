@@ -10,6 +10,7 @@ const arrows = document.querySelectorAll(".arrow");
 const form = document.querySelector(".wrapper__add__product");
 const wrapperCart = document.querySelector(".wrapper__cart");
 const cart = wrapperCart.querySelector(".cart");
+let cartObject = { name: "", price: 0, value: 0 };
 
 const menuHandler = () => {
   menu.classList.add("active");
@@ -123,29 +124,54 @@ const createCart = (thumb, title, price, value) => {
 
 const addToCartHandler = (e) => {
   e.preventDefault();
+  e.stopPropagation();
   const thumb = thumbsImageList.children[0].innerHTML;
   const title = document.querySelector("h1").innerText;
   const price = form.previousElementSibling.children[0].dataset.value;
   let value = form.children[0].children[1].value;
+
   value < 1
     ? alert("You cannot purchase less than 1 item")
+    : manageCartValue()
+    ? console.log('update cartObject')
     : createCart(thumb, title, price, value);
+    cartObject = {
+      name: title,
+      price: price,
+      value: value
+    };
+    sessionStorage.setItem('cart', JSON.stringify(cartObject));
+  resetInput();
 };
 
-showCartHandler = () => {
-  cart.classList.add("visible");
+const manageCartValue = () => {
+  if (cart.children[1].style.display === "none") {
+    console.log('cart is not empty');
+    return true;
+  }
 };
 
-manageProductsValue = (e) => {
+const showCartHandler = () => {
+  cart.classList.toggle("visible");
+};
+
+const resetInput = () => {
+  form.querySelector("#input__add__product").value = 0;
+};
+
+const manageProductsValue = (e) => {
   e.preventDefault();
+  e.stopPropagation();
   const valueOffset = e.target.classList.contains("button__plus")
     ? 1
     : e.target.classList.contains("button__minus")
     ? -1
     : addToCartHandler(e);
-  let value = parseInt(form.querySelector("#input__add__product").value);
-  value += valueOffset;
-  form.querySelector("#input__add__product").value = value;
+  let inputValue = parseInt(form.querySelector("#input__add__product").value);
+  if (valueOffset) {
+    inputValue += valueOffset;
+    form.querySelector("#input__add__product").value = inputValue;
+  }
 };
 
 hamburger.addEventListener("click", menuHandler);
