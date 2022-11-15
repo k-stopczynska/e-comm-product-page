@@ -29,6 +29,13 @@ const wrapperImageHandler = (e) => {
   let newSlide = [...slides.children].indexOf(currentSlide) + offset;
   if (newSlide > slides.children.length - 1) newSlide = 0;
   if (newSlide < 0) newSlide = slides.children.length - 1;
+  const thumbsImageList = e.target.closest("div").nextElementSibling;
+  for (const slide of [...thumbsImageList.children]) {
+    slide.classList.remove("checked");
+    if (slide.dataset.id === slides.children[newSlide].dataset.id) {
+      slide.classList.add("checked");
+    }
+  }
   currentSlide.classList.remove("active");
   slides.children[newSlide].classList.add("active");
 };
@@ -45,11 +52,11 @@ const lightboxHandler = () => {
   const arrows = document.querySelectorAll(".arrow");
   arrows.forEach((arrow) => {
     arrow.addEventListener("click", wrapperImageHandler);
-    const thumbsImageList = document.querySelectorAll(".wrapper__thumbs");
-    thumbsImageList.forEach((list) =>
-      list.addEventListener("click", thumbImageHandler)
-    );
   });
+  const thumbsImageList = document.querySelectorAll(".wrapper__thumbs");
+  thumbsImageList.forEach((list) =>
+    list.addEventListener("click", thumbImageHandler)
+  );
 };
 
 const closeLightboxHandler = () => {
@@ -133,20 +140,20 @@ const addToCartHandler = (e) => {
   value < 1
     ? alert("You cannot purchase less than 1 item")
     : manageCartValue()
-    ? console.log('update cartObject')
+    ? console.log("update cartObject")
     : createCart(thumb, title, price, value);
-    cartObject = {
-      name: title,
-      price: price,
-      value: value
-    };
-    sessionStorage.setItem('cart', JSON.stringify(cartObject));
+  cartObject = {
+    name: title,
+    price: price,
+    value: value,
+  };
+  sessionStorage.setItem("cart", JSON.stringify(cartObject));
   resetInput();
 };
 
 const manageCartValue = () => {
   if (cart.children[1].style.display === "none") {
-    console.log('cart is not empty');
+    console.log("cart is not empty");
     return true;
   }
 };
@@ -176,12 +183,17 @@ const manageProductsValue = (e) => {
 
 hamburger.addEventListener("click", menuHandler);
 closeMenu.addEventListener("click", closeMenuHandler);
+overlay.addEventListener("click", closeMenuHandler);
 arrows.forEach((arrow) => {
   arrow.addEventListener("click", wrapperImageHandler);
 });
 form.addEventListener("submit", addToCartHandler);
 form.addEventListener("click", manageProductsValue);
-mainImageList.addEventListener("click", lightboxHandler);
+console.log(document.body.clientWidth)
+if (document.body.clientWidth > 920) {
+  mainImageList.addEventListener("click", lightboxHandler);
+}
+
 thumbsImageList.addEventListener("click", thumbImageHandler);
 overlay.addEventListener("click", closeLightboxHandler);
 wrapperCart.addEventListener("click", showCartHandler);
