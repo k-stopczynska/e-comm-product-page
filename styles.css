@@ -178,9 +178,9 @@ body {
 
 .cart {
   position: absolute;
-  left: -15rem;
-  width: 22rem;
   height: 14rem;
+  width: 20rem;
+  left: -18rem;
   transform:translateY(-50rem);
   transition: transform .3s .3s ease;
   border: 1px solid transparent;
@@ -205,6 +205,16 @@ body {
 
 .cart.visible {
   transform: translateY(3rem);
+  width: 90vw;
+  left: -73vw;
+}
+
+@media (min-width: 920px) {
+  .cart.visible {
+    transform: translateY(3rem);
+    width: 22rem;
+    left: -15rem;
+  }
 }
 
 .cart__thumb {
@@ -230,7 +240,7 @@ body {
 }
 
 .button__checkout {
-  width: 90%;
+  min-width: 90%;
   height: auto;
   background: var(--orange);
   color: var(--white);

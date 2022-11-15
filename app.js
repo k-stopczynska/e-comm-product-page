@@ -104,24 +104,26 @@ const createCartThumb = (value) => {
   wrapperCart.appendChild(cartThumb);
 };
 
-const createCart = (thumb, title, price, value) => {
-  cart.children[1].style.display = "none";
+const createCart = () => {
+  cart.children[1].style.display = 'none';
+  const cartObj = JSON.parse(sessionStorage.getItem('cart'));
   cart.insertAdjacentHTML(
     "beforeend",
-    `  <div class="wrapper__cart__inside">
-         <div class="wrapper__cart__image">${thumb}</div>
+    `<div class="wrapper__cart__inside">
+         <div class="wrapper__cart__image">${cartObj.thumb}</div>
          <div>
-           <h4>${title}</h4>
-           <p>$${price} x <span>${value} </span><span>$${calculateCartSum(
-      price,
-      value
+           <h4>${cartObj.name}</h4>
+           <p>$${cartObj.price} x <span>${cartObj.value} </span><span>$${calculateCartSum(
+      cartObj.price,
+      cartObj.value
     )}</span></p>
          </div>
         <button class="button__trash"></button>
       </div>
     <button class="button__checkout">Checkout</button>`
-  );
-  createCartThumb(value);
+  )
+  ;
+  createCartThumb(cartObj.value);
   const buttonTrash = cart.querySelector(".button__trash");
   const buttonCheckout = cart.querySelector(".button__checkout");
   wrapperCart.appendChild(cart);
@@ -129,33 +131,38 @@ const createCart = (thumb, title, price, value) => {
   buttonCheckout.addEventListener("click", checkout);
 };
 
+const renderCart = () => {
+  if (JSON.parse(sessionStorage.getItem('cart'))) {
+    createCart();
+  }
+}
+renderCart();
+
 const addToCartHandler = (e) => {
+
   e.preventDefault();
   e.stopPropagation();
   const thumb = thumbsImageList.children[0].innerHTML;
   const title = document.querySelector("h1").innerText;
   const price = form.previousElementSibling.children[0].dataset.value;
   let value = form.children[0].children[1].value;
-
-  value < 1
-    ? alert("You cannot purchase less than 1 item")
-    : manageCartValue()
-    ? console.log("update cartObject")
-    : createCart(thumb, title, price, value);
   cartObject = {
+    thumb: thumb,
     name: title,
     price: price,
     value: value,
-  };
+}
+if (JSON.parse(sessionStorage.getItem('cart'))) {
+    const updatedCart = JSON.parse(sessionStorage.getItem('cart'))
+     cartObject = {...cartObject, value: +updatedCart.value + +value}
+    }
   sessionStorage.setItem("cart", JSON.stringify(cartObject));
-  resetInput();
-};
 
-const manageCartValue = () => {
-  if (cart.children[1].style.display === "none") {
-    console.log("cart is not empty");
-    return true;
-  }
+  value < 1
+    ? alert("You cannot purchase less than 1 item")
+    : createCart();
+
+  resetInput();
 };
 
 const showCartHandler = () => {
@@ -189,7 +196,6 @@ arrows.forEach((arrow) => {
 });
 form.addEventListener("submit", addToCartHandler);
 form.addEventListener("click", manageProductsValue);
-console.log(document.body.clientWidth)
 if (document.body.clientWidth > 920) {
   mainImageList.addEventListener("click", lightboxHandler);
 }
