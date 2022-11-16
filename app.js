@@ -11,6 +11,9 @@ const form = document.querySelector(".wrapper__add__product");
 const wrapperCart = document.querySelector(".wrapper__cart");
 const cart = wrapperCart.querySelector(".cart");
 let cartObject = { name: "", price: 0, value: 0 };
+cart.innerHTML = `
+<h4>Cart</h4>
+<p>Your cart is empty.</p>`
 
 const menuHandler = () => {
   menu.classList.add("active");
@@ -80,16 +83,17 @@ const thumbImageHandler = (e) => {
 };
 
 const removeCartItems = () => {
-  cart.children[1].style.display = "flex";
-  cart.removeChild(cart.children[2]);
-  cart.removeChild(cart.children[2]);
+  cart.innerHTML = `
+  <h4>Cart</h4>
+  <p>Your cart is empty.</p>`
+  sessionStorage.removeItem("cart");
   wrapperCart.removeChild(wrapperCart.children[1]);
 };
 
 const checkout = () => {
   removeCartItems();
   const thanks = document.createElement("h3");
-  thanks.innerText = "Thank you for your order!";
+  thanks.innerText = `Thank you for your order!`;
   cart.appendChild(thanks);
 };
 
@@ -105,11 +109,10 @@ const createCartThumb = (value) => {
 };
 
 const createCart = () => {
-  cart.children[1].style.display = 'none';
   const cartObj = JSON.parse(sessionStorage.getItem('cart'));
-  cart.insertAdjacentHTML(
-    "beforeend",
-    `<div class="wrapper__cart__inside">
+  cart.innerHTML =
+    ` <h4>Cart</h4>
+    <div class="wrapper__cart__inside">
          <div class="wrapper__cart__image">${cartObj.thumb}</div>
          <div>
            <h4>${cartObj.name}</h4>
@@ -121,7 +124,6 @@ const createCart = () => {
         <button class="button__trash"></button>
       </div>
     <button class="button__checkout">Checkout</button>`
-  )
   ;
   createCartThumb(cartObj.value);
   const buttonTrash = cart.querySelector(".button__trash");
@@ -203,3 +205,4 @@ if (document.body.clientWidth > 920) {
 thumbsImageList.addEventListener("click", thumbImageHandler);
 overlay.addEventListener("click", closeLightboxHandler);
 wrapperCart.addEventListener("click", showCartHandler);
+

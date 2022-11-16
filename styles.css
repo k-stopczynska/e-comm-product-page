@@ -178,9 +178,9 @@ body {
 
 .cart {
   position: absolute;
-  height: 14rem;
-  width: 20rem;
-  left: -18rem;
+  height: 15rem;
+  width: 95vw;
+  left: -76vw;
   transform:translateY(-50rem);
   transition: transform .3s .3s ease;
   border: 1px solid transparent;
@@ -188,6 +188,13 @@ body {
   box-shadow: 1px 1px 30px;;
   background: var(--white);
   z-index: 1200;
+}
+
+@media (min-width: 920px) {
+  .cart {
+    width: 22rem;
+    left: -15rem;
+  }
 }
 
 .cart> h4 {
@@ -205,15 +212,13 @@ body {
 
 .cart.visible {
   transform: translateY(3rem);
-  width: 90vw;
-  left: -73vw;
+
 }
 
 @media (min-width: 920px) {
   .cart.visible {
     transform: translateY(3rem);
-    width: 22rem;
-    left: -15rem;
+
   }
 }
 
@@ -386,6 +391,7 @@ filter:brightness(1) sepia(1) hue-rotate(-30deg) saturate(3);
     width: 100%;
     list-style: none;
     padding-top: 2em;
+    gap: 1em;
   }
 
   .wrapper__thumbs > li,
@@ -398,6 +404,10 @@ filter:brightness(1) sepia(1) hue-rotate(-30deg) saturate(3);
 
   .wrapper__thumbs > li {
     background: var(--white);
+  }
+
+  .wrapper__thumbs >li > img:hover {
+    opacity: .5;
   }
 
   .checked > img {
@@ -535,6 +545,7 @@ p {
   background: var(--orange);
   border: none;
   border-radius: 5px;
+  box-shadow: 5px 5px 10px 10px var(--pale-orange);
   color: var(--white);
   font-weight: var(--font-bold);
   padding: 1.2em;
@@ -543,6 +554,12 @@ p {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.button__minus:hover,
+.button__plus:hover,
+.button__add__product:hover {
+  opacity: .4;
 }
 
 .button__add__product > img {
