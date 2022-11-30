@@ -13,7 +13,7 @@ const cart = wrapperCart.querySelector(".cart");
 let cartObject = { name: "", price: 0, value: 0 };
 cart.innerHTML = `
 <h4>Cart</h4>
-<p>Your cart is empty.</p>`
+<p>Your cart is empty.</p>`;
 
 const menuHandler = () => {
   menu.classList.add("active");
@@ -85,7 +85,7 @@ const thumbImageHandler = (e) => {
 const removeCartItems = () => {
   cart.innerHTML = `
   <h4>Cart</h4>
-  <p>Your cart is empty.</p>`
+  <p>Your cart is empty.</p>`;
   sessionStorage.removeItem("cart");
   wrapperCart.removeChild(wrapperCart.children[1]);
 };
@@ -109,22 +109,19 @@ const createCartThumb = (value) => {
 };
 
 const createCart = () => {
-  const cartObj = JSON.parse(sessionStorage.getItem('cart'));
-  cart.innerHTML =
-    ` <h4>Cart</h4>
+  const cartObj = JSON.parse(sessionStorage.getItem("cart"));
+  cart.innerHTML = ` <h4>Cart</h4>
     <div class="wrapper__cart__inside">
          <div class="wrapper__cart__image">${cartObj.thumb}</div>
          <div>
            <h4>${cartObj.name}</h4>
-           <p>$${cartObj.price} x <span>${cartObj.value} </span><span>$${calculateCartSum(
-      cartObj.price,
-      cartObj.value
-    )}</span></p>
+           <p>$${cartObj.price} x <span>${
+    cartObj.value
+  } </span><span>$${calculateCartSum(cartObj.price, cartObj.value)}</span></p>
          </div>
         <button class="button__trash"></button>
       </div>
-    <button class="button__checkout">Checkout</button>`
-  ;
+    <button class="button__checkout">Checkout</button>`;
   createCartThumb(cartObj.value);
   const buttonTrash = cart.querySelector(".button__trash");
   const buttonCheckout = cart.querySelector(".button__checkout");
@@ -134,14 +131,13 @@ const createCart = () => {
 };
 
 const renderCart = () => {
-  if (JSON.parse(sessionStorage.getItem('cart'))) {
+  if (JSON.parse(sessionStorage.getItem("cart"))) {
     createCart();
   }
-}
+};
 renderCart();
 
 const addToCartHandler = (e) => {
-
   e.preventDefault();
   e.stopPropagation();
   const thumb = thumbsImageList.children[0].innerHTML;
@@ -153,16 +149,14 @@ const addToCartHandler = (e) => {
     name: title,
     price: price,
     value: value,
-}
-if (JSON.parse(sessionStorage.getItem('cart'))) {
-    const updatedCart = JSON.parse(sessionStorage.getItem('cart'))
-     cartObject = {...cartObject, value: +updatedCart.value + +value}
-    }
+  };
+  if (JSON.parse(sessionStorage.getItem("cart"))) {
+    const updatedCart = JSON.parse(sessionStorage.getItem("cart"));
+    cartObject = { ...cartObject, value: +updatedCart.value + +value };
+  }
   sessionStorage.setItem("cart", JSON.stringify(cartObject));
 
-  value < 1
-    ? alert("You cannot purchase less than 1 item")
-    : createCart();
+  value < 1 ? alert("You cannot purchase less than 1 item") : createCart();
 
   resetInput();
 };
@@ -205,4 +199,3 @@ if (document.body.clientWidth > 920) {
 thumbsImageList.addEventListener("click", thumbImageHandler);
 overlay.addEventListener("click", closeLightboxHandler);
 wrapperCart.addEventListener("click", showCartHandler);
-
